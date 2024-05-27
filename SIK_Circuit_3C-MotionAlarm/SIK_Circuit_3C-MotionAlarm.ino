@@ -58,8 +58,10 @@ void loop() {
     analogWrite(greenPin, 0);
     analogWrite(bluePin, 0);
 
-    //this code wiggles the servo and beeps the buzzer
-    tone(buzzerPin, 272);         //buzz the buzzer pin
+    //this code turns the servo and beeps the buzzer
+    // the closer the object, the higher pitch the buzzer produces
+    int buzzerTone = map(distance, 0, 10, 500, 31); // according to doc, it is not possible to generate tones lower than 31Hz.
+    tone(buzzerPin, buzzerTone);         //buzz the buzzer pin
     int servoPosition = map(distance, 0, 10, 170, 10); // the closer the object,
                                                       // the further the servo turns away from the 10 angle
     myservo.write(servoPosition);
