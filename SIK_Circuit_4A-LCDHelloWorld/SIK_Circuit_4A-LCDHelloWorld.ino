@@ -28,5 +28,17 @@ void loop() {
   lcd.print("Hello, world!");       //print hello, world! starting at that position
 
   lcd.setCursor(0, 1);              //move the cursor to the first space of the bottom row
-  lcd.print(millis() / 1000);       //print the number of seconds that have passed since the last reset
+  lcd.print(getTime());       //print the number of seconds that have passed since the last reset
+}
+
+String getTime(){
+  unsigned long totalSecs = millis() / 1000;
+  int totalMins = totalSecs / 60;
+  int currSecs = totalSecs % 60;
+
+  int totalHrs = totalMins / 60;
+  int currMins = totalMins % 60;
+
+  String str = String(totalHrs) + ":" + String(currMins) + ":" + String(currSecs);
+  return str;
 }
