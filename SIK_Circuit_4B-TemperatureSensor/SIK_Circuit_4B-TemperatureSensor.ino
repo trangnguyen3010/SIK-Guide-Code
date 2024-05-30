@@ -18,28 +18,52 @@ float voltage = 0;                          //the voltage measured from the TMP3
 float degreesC = 0;                         //the temperature in Celsius, calculated from the voltage
 float degreesF = 0;                         //the temperature in Fahrenheit, calculated from the voltage
 
+const int trigPin = 5;           //connects to the trigger pin on the distance sensor
+const int echoPin = 4;           //connects to the echo pin on the distance sensor
+
 void setup() {
 
   lcd.begin(16, 2);                         //tell the lcd library that we are using a display that is 16 characters wide and 2 characters high
   lcd.clear();                              //clear the display
+
+  pinMode(trigPin, OUTPUT);   //the trigger pin will output pulses of electricity
+  pinMode(echoPin, INPUT);    //the echo pin will measure the duration of pulses coming back from the distance sensor
 }
 
 void loop() {
-
-  voltage = analogRead(A0) * 0.004882813;   //convert the analog reading, which varies from 0 to 1023, back to a voltage value from 0-5 volts
-  degreesC = (voltage - 0.5) * 100.0;       //convert the voltage to a temperature in degrees Celsius
-  degreesF = degreesC * (9.0 / 5.0) + 32.0; //convert the voltage to a temperature in degrees Fahrenheit
-
+  int dist = getDistance();
   lcd.clear();                              //clear the LCD
 
   lcd.setCursor(0, 0);                      //set the cursor to the top left position
-  lcd.print("Degrees C: ");                 //print a label for the data
-  lcd.print(degreesC);                      //print the degrees Celsius
+  lcd.print("cm: ");            //print a label for the data
+  lcd.print(dist * 2.56);                          //print the distance in centimetera
 
   lcd.setCursor(0, 1);                      //set the cursor to the lower left position
-  lcd.print("Degrees F: ");                 //Print a label for the data
-  lcd.print(degreesF);                      //print the degrees Fahrenheit
+  lcd.print("inches: ");        //Print a label for the data
+  lcd.print(dist);                          //print the degrees inches
 
   delay(1000);                              //delay for 1 second between each reading (this makes the display less noisy)
+}
+
+
+//------------------FUNCTIONS-------------------------------
+
+//RETURNS THE DISTANCE MEASURED BY THE HC-SR04 DISTANCE SENSOR
+float getDistance()
+{
+  float echoTime;                   //variable to store the time it takes for a ping to bounce off an object
+  float calculatedDistance;         //variable to store the distance calculated from the echo time
+
+  //send out an ultrasonic pulse that's 10ms long
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  echoTime = pulseIn(echoPin, HIGH);      //use the pulsein command to see how long it takes for the
+                                          //pulse to bounce back to the sensor
+
+  calculatedDistance = echoTime / 148.0;  //calculate the distance of the object that reflected the pulse (half the bounce time multiplied by the speed of sound)
+
+  return calculatedDistance;              //send back the distance that was calculated
 }
 
