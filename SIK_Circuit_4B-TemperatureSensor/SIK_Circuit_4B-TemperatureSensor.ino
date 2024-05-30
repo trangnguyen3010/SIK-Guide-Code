@@ -12,7 +12,10 @@
 */
 
 #include <LiquidCrystal.h>                  //the liquid crystal library contains commands for printing to the display
+#include <LcdBarGraph.h>
+
 LiquidCrystal lcd(13, 12, 11, 10, 9, 8);    // tell the RedBoard what pins are connected to the display
+LcdBarGraph lbg(&lcd, 16, 0, 1);
 
 float voltage = 0;                          //the voltage measured from the TMP36
 float degreesC = 0;                         //the temperature in Celsius, calculated from the voltage
@@ -22,6 +25,7 @@ void setup() {
 
   lcd.begin(16, 2);                         //tell the lcd library that we are using a display that is 16 characters wide and 2 characters high
   lcd.clear();                              //clear the display
+  delay(100);
 }
 
 void loop() {
@@ -33,13 +37,10 @@ void loop() {
   lcd.clear();                              //clear the LCD
 
   lcd.setCursor(0, 0);                      //set the cursor to the top left position
-  lcd.print("Degrees C: ");                 //print a label for the data
-  lcd.print(degreesC);                      //print the degrees Celsius
+  lcd.print("Degrees F: ");                 //print a label for the data
+  lcd.print(degreesF);                      //print the degrees Celsius
 
-  lcd.setCursor(0, 1);                      //set the cursor to the lower left position
-  lcd.print("Degrees F: ");                 //Print a label for the data
-  lcd.print(degreesF);                      //print the degrees Fahrenheit
-
-  delay(1000);                              //delay for 1 second between each reading (this makes the display less noisy)
+  lbg.drawValue(degreesF - 80, 15);
+  delay(500);                              //delay for 0.5 second between each reading (this makes the display less noisy)
 }
 
