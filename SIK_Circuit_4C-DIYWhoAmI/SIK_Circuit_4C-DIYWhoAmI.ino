@@ -27,9 +27,11 @@ long startTime = 0;                   //used to measure time that has passed for
 int roundNumber = 0;                        //keeps track of the roundNumber so that it can be displayed at the end of the game
 const int arraySize = 25;
 
-const char* words[arraySize] = {"moose", "beaver", "bear", "goose", "dog", "cat", "squirrel", "bird", "elephant", "horse",
-                                "bull", "giraffe", "seal", "bat", "skunk", "turtle", "whale", "rhino", "lion", "monkey",
-                                "frog", "alligator", "kangaroo", "hippo", "rabbit"
+const char* words[arraySize] = {"Vertex", "Edge", "Graph", "Degree", "Path", "Cycle",
+ "Tree", "Subgraph", "Connected", "Bipartite", "Complete", "Planar",
+  "Clique", "Isomorphism", "Adjacency", "Incidence", "Eulerian", "Hamiltonian",
+   "Chromatic", "Graph Coloring", "Spanning Tree", "Cut", "Flow", "Network",
+    "Matchings"
                                };
 
 // the start value in the sequence array must have a value that could never be an index of an array
