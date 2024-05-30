@@ -22,7 +22,7 @@ int buttonPin = 2;                    //pin that the button is connected to
 int buzzerPin = 6;                    //pin for driving the buzzer
 int buttonPressTime = 0;              //variable to show how much time the player has left to guess the word (and press the button)
 
-long timeLimit = 15000;               //time limit for the player to guess each word
+long timeLimit = 10000;               //time limit for the player to guess each word
 long startTime = 0;                   //used to measure time that has passed for each word
 int roundNumber = 0;                        //keeps track of the roundNumber so that it can be displayed at the end of the game
 const int arraySize = 25;
