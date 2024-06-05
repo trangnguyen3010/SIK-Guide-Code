@@ -40,17 +40,7 @@ void loop() {
   if (Serial.available() > 0) {         //if the user has entered something in the serial monitor
     motorSpeed = Serial.parseInt();     //set the motor speed equal to the number in the serial message
 
-    String inputString = Serial.readString(); // Read the input string until newline character
-    Serial.println("You entered: " + inputString);
-    Serial.println("Unicode values:");
-
-    // Loop through each character in the input string
-    for (int i = 0; i < inputString.length(); i++) {
-      char c = inputString[i];
-      Serial.print(" Unicode: ");
-      Serial.println((int)c, DEC); // Print the Unicode value of the character in decimal
-    }
-    Serial.println("Enter a string: ");
+    String inputString = Serial.readStringUntil("\n");
 
     Serial.print("Motor Speed: ");      //print the speed that the motor is set to run at
     Serial.println(motorSpeed);
