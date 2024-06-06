@@ -38,7 +38,7 @@ const int turnTime = 8;        //this is the number of milliseconds that it take
                                //You can change the driveTime and turnTime to make them more accurate
 
 String botDirection;           //the direction that the robot will drive in (this change which direction the two motors spin in)
-String distance;               //the distance to travel in each direction
+int distance;               //the distance to travel in each direction
 
 /********************************************************************************/
 void setup()
@@ -70,44 +70,28 @@ void loop()
     if (Serial.available() > 0)                         //if the user has sent a command to the RedBoard
     {
       botDirection = Serial.readStringUntil(' ');       //read the characters in the command until you reach the first space
-      distance = Serial.readStringUntil(' ');           //read the characters in the command until you reach the second space
+      distance = Serial.readStringUntil(' ').toInt();           //read the characters in the command until you reach the second space
 
       //print the command that was just received in the serial monitor
       Serial.print(botDirection);
       Serial.print(" ");
-      Serial.println(distance.toInt());
+      Serial.println(distance);
 
       if (botDirection == "f")                         //if the entered direction is forward
       {
-        rightMotor(200);                                //drive the right wheel forward
-        leftMotor(200);                                 //drive the left wheel forward
-        delay(driveTime * distance.toInt());            //drive the motors long enough travel the entered distance
-        rightMotor(0);                                  //turn the right motor off
-        leftMotor(0);                                   //turn the left motor off
+        driveMotors(200, 200, driveTime, distance);
       }
       else if (botDirection == "b")                    //if the entered direction is backward
       {
-        rightMotor(-200);                               //drive the right wheel forward
-        leftMotor(-200);                                //drive the left wheel forward
-        delay(driveTime * distance.toInt());            //drive the motors long enough travel the entered distance
-        rightMotor(0);                                  //turn the right motor off
-        leftMotor(0);                                   //turn the left motor off
+        driveMotors(-200, -200, driveTime, distance);
       }
       else if (botDirection == "r")                     //if the entered direction is right
       {
-        rightMotor(-200);                               //drive the right wheel forward
-        leftMotor(255);                                 //drive the left wheel forward
-        delay(turnTime * distance.toInt());             //drive the motors long enough turn the entered distance
-        rightMotor(0);                                  //turn the right motor off
-        leftMotor(0);                                   //turn the left motor off
+        driveMotors(-200, 255, turnTime, distance);
       }
       else if (botDirection == "l")                   //if the entered direction is left
       {
-        rightMotor(255);                                //drive the right wheel forward
-        leftMotor(-200);                                //drive the left wheel forward
-        delay(turnTime * distance.toInt());             //drive the motors long enough turn the entered distance
-        rightMotor(0);                                  //turn the right motor off
-        leftMotor(0);                                   //turn the left motor off
+        driveMotors(255, -200, turnTime, distance);
       }
     }
   }
@@ -118,6 +102,14 @@ void loop()
   }
 }
 /********************************************************************************/
+void driveMotors(int rightMotorSpeed, int leftMotorSpeed, int delayTime, int distance) {
+  rightMotor(rightMotorSpeed);                    //drive the right wheel
+  leftMotor(leftMotorSpeed);                      //drive the left wheel
+  delay(delayTime * distance);                    //drive the motors long enough turn/drive the entered distance
+  rightMotor(0);                                  //turn the right motor off
+  leftMotor(0);                                   //turn the left motor off
+}
+
 void rightMotor(int motorSpeed)                       //function for driving the right motor
 {
   if (motorSpeed > 0)                                 //if the motor should drive forward (positive speed)
