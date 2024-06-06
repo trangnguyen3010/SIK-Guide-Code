@@ -22,6 +22,8 @@ int switchPin = 7;             //switch to turn the robot on and off
 //VARIABLES
 int motorSpeed = 0;       //starting speed for the motor
 
+int switchValue = digitalRead(7);
+
 void setup() {
   pinMode(switchPin, INPUT_PULLUP);   //set this as a pullup to sense whether the switch is flipped
 
@@ -40,17 +42,18 @@ void loop() {
   if (Serial.available() > 0) {         //if the user has entered something in the serial monitor
     motorSpeed = Serial.parseInt();     //set the motor speed equal to the number in the serial message
 
+    String inputString = Serial.readString();
+
     Serial.print("Motor Speed: ");      //print the speed that the motor is set to run at
     Serial.println(motorSpeed);
-  }
-
-  if (digitalRead(7) == LOW) {          //if the switch is on...
     spinMotor(motorSpeed);
-  } else {                              //if the switch is off...
-    spinMotor(0);                   //turn the motor off
   }
 
-
+  if (digitalRead(7) != switchValue) {
+    switchValue = digitalRead(7);
+    motorSpeed = (-1) * motorSpeed;
+    spinMotor(motorSpeed);
+  }
 }
 
 /********************************************************************************/

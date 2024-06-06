@@ -45,6 +45,7 @@ void setup()
 }
 
 void loop() {
+  
   distance = getDistance();   //variable to store the distance measured by the sensor
 
   Serial.print(distance);     //print the distance that was measured
@@ -59,22 +60,23 @@ void loop() {
 
     //this code wiggles the servo and beeps the buzzer
     tone(buzzerPin, 272);         //buzz the buzzer pin
-    myservo.write(10);            //move the servo to 45 degrees
+    int servoPosition = map(distance, 0, 10, 170, 10); // the closer the object,
+                                                      // the further the servo turns away from the 10 angle
+    myservo.write(servoPosition);
     delay(100);                   //wait 100 milliseconds
 
     noTone(buzzerPin);            //turn the buzzer off
-    myservo.write(150);           //move the servo to 135 degrees
-    delay(100);                   //wait 100 milliseconds
-
 
   } else if (10 < distance && distance < 20) { //if the object is a medium distance
+    myservo.write(0);
 
     //make the RGB LED yellow
     analogWrite(redPin, 255);
     analogWrite(greenPin, 50);
     analogWrite(bluePin, 0);
 
-  } else {                                    //if the object is far away
+  } else { 
+    myservo.write(0);                                   //if the object is far away
 
     //make the RGB LED green
     analogWrite(redPin, 0);
