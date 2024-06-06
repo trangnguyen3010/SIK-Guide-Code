@@ -40,13 +40,15 @@ void loop() {
   if (Serial.available() > 0) {         //if the user has entered something in the serial monitor
     motorSpeed = Serial.parseInt();     //set the motor speed equal to the number in the serial message
 
+    String inputString = Serial.readStringUntil("\n");
+
     Serial.print("Motor Speed: ");      //print the speed that the motor is set to run at
     Serial.println(motorSpeed);
   }
 
   if (digitalRead(7) == LOW) {          //if the switch is on...
     spinMotor(motorSpeed);
-  } else {                              //if the switch is off...
+  } else {    //if the switch is off...
     spinMotor(0);                   //turn the motor off
   }
 
