@@ -38,6 +38,7 @@ float distance = 0;            //variable to store the distance measured by the 
 //robot behaviour variables
 int backupTime = 300;           //amount of time that the robot will back up when it senses an object
 int turnTime = 200;             //amount that the robot will turn once it has backed up
+int maxAllowedDist = 10;
 
 /********************************************************************************/
 void setup()
@@ -73,7 +74,7 @@ void loop()
 
   if (digitalRead(switchPin) == LOW) { //if the on switch is flipped
 
-    if (distance < 10) {              //if an object is detected
+    if (distance < maxAllowedDist) {              //if an object is detected
       //back up and turn
       Serial.print(" ");
       Serial.print("BACK!");
