@@ -17,10 +17,9 @@ const int AIN1 = 13;           //control pin 1 on the motor driver for the right
 const int AIN2 = 12;            //control pin 2 on the motor driver for the right motor
 const int PWMA = 11;            //speed control pin on the motor driver for the right motor
 
-int switchPin = 7;             //switch to turn the robot on and off
-
 //VARIABLES
 int motorSpeed = 0;       //starting speed for the motor
+int photoresistor = 0;
 
 void setup() {
   pinMode(switchPin, INPUT_PULLUP);   //set this as a pullup to sense whether the switch is flipped
@@ -40,17 +39,20 @@ void loop() {
   if (Serial.available() > 0) {         //if the user has entered something in the serial monitor
     motorSpeed = Serial.parseInt();     //set the motor speed equal to the number in the serial message
 
+    String inputString = Serial.readStringUntil("\n");
+
     Serial.print("Motor Speed: ");      //print the speed that the motor is set to run at
     Serial.println(motorSpeed);
   }
 
-  if (digitalRead(7) == LOW) {          //if the switch is on...
+  //read the brightness of the ambient light
+  photoresistor = analogRead(A0);   //set photoresistor to a number between 0 and 1023 based on how bright the ambient light is
+
+  if (photoresistor > 200){
     spinMotor(motorSpeed);
-  } else {                              //if the switch is off...
-    spinMotor(0);                   //turn the motor off
-  }
-
-
+  } else {
+    spinMotor(0);
+  }  
 }
 
 /********************************************************************************/
