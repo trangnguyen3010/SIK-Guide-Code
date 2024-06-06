@@ -27,8 +27,8 @@ const int BIN1 = 8;           //control pin 1 on the motor driver for the left m
 
 int switchPin = 7;             //switch to turn the robot on and off
 
-const int driveTime = 20;      //this is the number of milliseconds that it takes the robot to drive 1 inch
-                               //it is set so that if you tell the robot to drive forward 25 units, the robot drives about 25 inches
+const int driveTime = 60;      //this is the number of milliseconds that it takes the robot to drive 1 centimeter
+                               //it is set so that if you tell the robot to drive forward 25 units, the robot drives about 25 centimeter
 
 const int turnTime = 8;        //this is the number of milliseconds that it takes to turn the robot 1 degree
                                //it is set so that if you tell the robot to turn right 90 units, the robot turns about 90 degrees
@@ -58,7 +58,7 @@ void setup()
 
   //prompt the user to enter a command
   Serial.println("Enter a direction followed by a distance.");
-  Serial.println("f = forward, b = backward, r = turn right, l = turn left");
+  Serial.println("f = forward, b = backward, r = turn right, l = turn left, zf = zigzag forward, zb = zigzag backward");
   Serial.println("Example command: f 50");
 }
 
@@ -92,6 +92,34 @@ void loop()
       else if (botDirection == "l")                   //if the entered direction is left
       {
         driveMotors(255, -200, turnTime, distance);
+      }
+      else if (botDirection == "zf")
+      {
+        // turn right
+        driveMotors(-200, 255, turnTime, 45);
+
+        // move straight
+        driveMotors(200, 200, driveTime, distance);
+
+        // turn left
+        driveMotors(255, -200, turnTime, 90);
+
+        // move straight
+        driveMotors(200, 200, driveTime, distance);
+      }
+      else if (botDirection == "zb")
+      {
+        // turn right
+        driveMotors(-200, 255, turnTime, 45);
+
+        // move back
+        driveMotors(-200, -200, driveTime, distance);
+
+        // turn left
+        driveMotors(255, -200, turnTime, 90);
+
+        // move back
+        driveMotors(-200, -200, driveTime, distance);
       }
     }
   }
