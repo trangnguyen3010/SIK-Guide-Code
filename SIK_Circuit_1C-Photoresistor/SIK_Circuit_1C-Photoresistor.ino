@@ -12,7 +12,6 @@
 */
 
 int photoresistor = 0;              //this variable will hold a value based on the brightness of the ambient light
-int threshold = 750;                //if the photoresistor reading is below this value the the light will turn on
 
 void setup()
 {
@@ -27,13 +26,9 @@ void loop()
   photoresistor = analogRead(A0);   //set photoresistor to a number between 0 and 1023 based on how bright the ambient light is
   Serial.println(photoresistor);    //print the value of photoresistor in the serial monitor on the computer
 
-  //if the photoresistor value is below the threshold turn the light on, otherwise turn it off
-  if (photoresistor < threshold) {
-    digitalWrite(13, HIGH);         // Turn on the LED
-  } else {
-    digitalWrite(13, LOW);          // Turn off the LED
-  }
-
-  delay(100);                       //short delay to make the printout easier to read
+  digitalWrite(13, HIGH);         // Turn on the LED
+  delay(photoresistor);
+  digitalWrite(13, LOW);          // Turn off the LED
+  delay(photoresistor);
 }
 
