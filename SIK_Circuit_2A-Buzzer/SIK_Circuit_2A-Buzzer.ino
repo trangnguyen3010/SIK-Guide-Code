@@ -20,41 +20,53 @@ void setup()
 
 void loop()
 {
+  play('C', 2);       // Twin
+  play('C', 2);       // kle
+  play('G', 2);       // Twin
+  play('G', 2);       // kle
+  play('A', 2);       // Lit
+  play('A', 2);       // tle
+  play('G', 4);       // Star
 
-  play('g', 2);       //ha
-  play('g', 1);       //ppy
-  play('a', 4);       //birth
-  play('g', 4);       //day
-  play('C', 4);       //to
-  play('b', 4);       //you
+  play('F', 2);       // How
+  play('F', 2);       // I
+  play('E', 2);       // Won
+  play('E', 2);       // der
+  play('D', 2);       // What
+  play('D', 2);       // You
+  play('C', 4);       // Are
 
-  play(' ', 2);       //pause for 2 beats
+  play('G', 2);       // Up
+  play('G', 2);       // A
+  play('F', 2);       // bove
+  play('F', 2);       // The
+  play('E', 2);       // World
+  play('E', 2);       // So
+  play('D', 4);       // High
 
-  play('g', 2);       //ha
-  play('g', 1);       //ppy
-  play('a', 4);       //birth
-  play('g', 4);       //day
-  play('D', 4);       //to
-  play('C', 4);       //you
+  play('G', 2);       // Like
+  play('G', 2);       // A
+  play('F', 2);       // Dia
+  play('F', 2);       // mond
+  play('E', 2);       // In
+  play('E', 2);       // The
+  play('D', 4);       // Sky
 
-  play(' ', 2);       //pause for 2 beats
+  play('C', 2);       // Twin
+  play('C', 2);       // kle
+  play('G', 2);       // Twin
+  play('G', 2);       // kle
+  play('A', 2);       // Lit
+  play('A', 2);       // tle
+  play('G', 4);       // Star
 
-  play('g', 2);       //ha
-  play('g', 1);       //ppy
-  play('G', 4);       //birth
-  play('E', 4);       //day
-  play('C', 4);       //dear
-  play('b', 4);       //your
-  play('a', 6);       //name
-
-  play(' ', 2);       //pause for 2 beats
-
-  play('F', 2);       //ha
-  play('F', 1);       //ppy
-  play('E', 4);       //birth
-  play('C', 4);       //day
-  play('D', 4);       //to
-  play('C', 6);       //you
+  play('F', 2);       // How
+  play('F', 2);       // I
+  play('E', 2);       // Won
+  play('E', 2);       // der
+  play('D', 2);       // What
+  play('D', 2);       // You
+  play('C', 4);       // Are
 
   while (true) {}     //get stuck in this loop forever so that the song only plays once
 }
