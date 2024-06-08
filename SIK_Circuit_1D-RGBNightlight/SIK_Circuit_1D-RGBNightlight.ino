@@ -40,7 +40,7 @@ void loop() {
   Serial.print("  Potentiometer value:");
   Serial.println(potentiometer);          //print the potentiometer value to the serial monitor
 
-  if (photoresistor < threshold) {        //if it's dark (the photoresistor value is below the threshold) turn the LED on
+  if (photoresistor < potentiometer) {        //if it's dark (the photoresistor value is below the threshold) turn the LED on
     //These nested if statements check for a variety of ranges and
     //call different functions based on the current potentiometer value.
     //Those functions are found at the bottom of the sketch.
