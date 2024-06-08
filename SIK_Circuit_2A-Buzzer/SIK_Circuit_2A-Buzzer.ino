@@ -72,7 +72,7 @@ void play( char note, int beats)
   int frequencies[] = {131, 147, 165, 175, 196, 220, 247, 262, 294, 330, 349, 392, 440, 494, 0};
 
   int currentFrequency = 0;    //the frequency that we find when we look up a frequency in the arrays
-  int beatLength = 150;   //the length of one beat (changing this will speed up or slow down the tempo of the song)
+  int beatLength = 75;   //the length of one beat (changing this will speed up or slow down the tempo of the song)
 
   //look up the frequency that corresponds to the note
   for (int i = 0; i < numNotes; i++)  // check each value in notes from 0 to 14
