@@ -41,23 +41,7 @@ void loop() {
   Serial.println(potentiometer);          //print the potentiometer value to the serial monitor
 
   if (photoresistor < threshold) {        //if it's dark (the photoresistor value is below the threshold) turn the LED on
-    //These nested if statements check for a variety of ranges and
-    //call different functions based on the current potentiometer value.
-    //Those functions are found at the bottom of the sketch.
-    if (potentiometer > 0 && potentiometer <= 150)
-      red();
-    if (potentiometer > 150 && potentiometer <= 300)
-      orange();
-    if (potentiometer > 300 && potentiometer <= 450)
-      yellow();
-    if (potentiometer > 450 && potentiometer <= 600)
-      green();
-    if (potentiometer > 600 && potentiometer <= 750)
-      cyan();
-    if (potentiometer > 750 && potentiometer <= 900)
-      blue();
-    if (potentiometer > 900)
-      magenta();
+    blink();
   }
   else {                                //if it isn't dark turn the LED off
 
@@ -66,6 +50,37 @@ void loop() {
   }
 
   delay(100);                             //short delay so that the printout is easier to read
+}
+
+void blink() {
+  red();
+  delay(100);
+  turnOff();
+  delay(100);
+  orange();
+  delay(100);
+  turnOff();
+  delay(100);
+  yellow();
+  delay(100);
+  turnOff();
+  delay(100);
+  green();
+  delay(100);
+  turnOff();
+  delay(100);
+  cyan();
+  delay(100);
+  turnOff();
+  delay(100);
+  blue();
+  delay(100);
+  turnOff();
+  delay(100);
+  magenta();
+  delay(100);
+  turnOff();
+  delay(100);
 }
 
 void red () {
