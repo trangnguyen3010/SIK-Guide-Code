@@ -221,13 +221,13 @@ void loseSequence() {
   }
 
   //play the 1Up noise
-  tone(buzzerPin, 130, 250);   //E6
+  tone(buzzerPin, 80, 250);   //E6
   delay(275);
-  tone(buzzerPin, 73, 250);   //G6
+  tone(buzzerPin, 23, 250);   //G6
   delay(275);
-  tone(buzzerPin, 65, 150);   //E7
+  tone(buzzerPin, 15, 150);   //E7
   delay(175);
-  tone(buzzerPin, 98, 500);   //C7
+  tone(buzzerPin, 48, 500);   //C7
   delay(500);
 
   //wait until a button is pressed
