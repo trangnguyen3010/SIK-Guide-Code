@@ -16,7 +16,7 @@ int button[] = {2, 4, 6, 8};  //red is button[0], yellow is button[1], green is 
 int led[] = {3, 5, 7, 9};     //red is led[0], yellow is led[1], green is led[2], blue is led[3]
 int tones[] = {262, 330, 392, 494};   //tones to play with each button (c, e, g, b)
 
-int roundsToWin = 10;         //number of rounds the player has to play before they win the game (the array can only hold up to 16 rounds)
+int roundsToWin = 5;         //number of rounds the player has to play before they win the game (the array can only hold up to 16 rounds)
 int buttonSequence[16];       //make an array of numbers that will be the sequence that the player needs to remember
 
 int buzzerPin = 10;           //pin that the buzzer is connected to
@@ -189,17 +189,17 @@ void winSequence() {
   }
 
   //play the 1Up noise
-  tone(buzzerPin, 1318, 150);   //E6
+  tone(buzzerPin, 1818, 150);   //E6
   delay(175);
-  tone(buzzerPin, 1567, 150);   //G6
+  tone(buzzerPin, 2067, 150);   //G6
   delay(175);
-  tone(buzzerPin, 2637, 150);   //E7
+  tone(buzzerPin, 3137, 150);   //E7
   delay(175);
-  tone(buzzerPin, 2093, 150);   //C7
+  tone(buzzerPin, 2593, 150);   //C7
   delay(175);
-  tone(buzzerPin, 2349, 150);   //D7
+  tone(buzzerPin, 2849, 150);   //D7
   delay(175);
-  tone(buzzerPin, 3135, 500);   //G7
+  tone(buzzerPin, 3635, 500);   //G7
   delay(500);
 
   //wait until a button is pressed
