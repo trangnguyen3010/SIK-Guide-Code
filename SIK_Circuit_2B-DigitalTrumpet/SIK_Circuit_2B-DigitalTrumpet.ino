@@ -30,18 +30,13 @@ void setup() {
 }
 
 void loop() {
-
-  if (digitalRead(firstKeyPin) == LOW) {      //if the first key is pressed
-    tone(buzzerPin, 262);                     //play the frequency for c
-  }
-  else if (digitalRead(secondKeyPin) == LOW) { //if the second key is pressed
-    tone(buzzerPin, 330);                     //play the frequency for e
-  }
-  else if (digitalRead(thirdKeyPin) == LOW) { //if the third key is pressed
-    tone(buzzerPin, 392);                     //play the frequency for g
-  }
-  else {
-    noTone(buzzerPin);                        //if no key is pressed turn the buzzer off
+  int notes = (digitalRead(firstKeyPin) == LOW) * 262
+              + (digitalRead(secondKeyPin) == LOW) * 294
+              + (digitalRead(thirdKeyPin) == LOW) * 330;
+  if (notes == 0) {
+    noTone(buzzerPin);
+  } else {
+    tone(buzzerPin, notes);
   }
 }
 
