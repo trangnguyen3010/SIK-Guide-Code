@@ -31,11 +31,17 @@ void setup() {
 
 void loop() {
 
-  if (digitalRead(firstKeyPin) == LOW) {      //if the first key is pressed
+  if (digitalRead(firstKeyPin) == LOW && digitalRead(secondKeyPin) == HIGH) {      //if the first key is pressed
     tone(buzzerPin, 262);                     //play the frequency for c
   }
-  else if (digitalRead(secondKeyPin) == LOW) { //if the second key is pressed
+  else if (digitalRead(firstKeyPin) == LOW && digitalRead(secondKeyPin) == LOW) { 
+    tone(buzzerPin, 294);                     //play the frequency for d
+  }
+  else if (digitalRead(secondKeyPin) == LOW && digitalRead(thirdKeyPin) == HIGH) { //if the second key is pressed
     tone(buzzerPin, 330);                     //play the frequency for e
+  }
+  else if (digitalRead(secondKeyPin) == LOW && digitalRead(thirdKeyPin) == LOW) {
+    tone(buzzerPin, 349);                     //play the frequency for f
   }
   else if (digitalRead(thirdKeyPin) == LOW) { //if the third key is pressed
     tone(buzzerPin, 392);                     //play the frequency for g
