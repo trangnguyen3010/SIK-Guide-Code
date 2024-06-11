@@ -21,20 +21,51 @@ int RedPin = 9;
 int GreenPin = 10;
 int BluePin = 11;
 
-void setup() {
-  Serial.begin(9600);           //start a serial connection with the computer
+// Current color variables
+int currentRed = 0;
+int currentGreen = 0;
+int currentBlue = 0;
 
-  //set the LED pins to output
+// Function to smoothly transition from one color to another
+void transitionColor(int endRed, int endGreen, int endBlue, int steps, int delayTime) {
+  int startRed = currentRed;
+  int startGreen = currentGreen;
+  int startBlue = currentBlue;
+
+  for (int i = 0; i <= steps; i++) {
+    int red = startRed + ((endRed - startRed) * i) / steps;
+    int green = startGreen + ((endGreen - startGreen) * i) / steps;
+    int blue = startBlue + ((endBlue - startBlue) * i) / steps;
+
+    analogWrite(RedPin, red);
+    analogWrite(GreenPin, green);
+    analogWrite(BluePin, blue);
+    delay(delayTime);
+  }
+
+  // Update current color to the new color
+  currentRed = endRed;
+  currentGreen = endGreen;
+  currentBlue = endBlue;
+}
+
+void setup() {
+  // Initialize serial communication at 9600 bits per second
+  Serial.begin(9600);
+
+  // Set the RGB LED pins as output
   pinMode(RedPin, OUTPUT);
   pinMode(GreenPin, OUTPUT);
   pinMode(BluePin, OUTPUT);
 }
 
 void loop() {
-
-  photoresistor = analogRead(A0);         //read the value of the photoresistor
+  // Read the value of the photoresistor
+  photoresistor = analogRead(A0);
+  // Read the value of the potentiometer
   potentiometer = analogRead(A1);
 
+<<<<<<< Updated upstream
   Serial.print("Photoresistor value:");
   Serial.print(photoresistor);          //print the photoresistor value to the serial monitor
   Serial.print("  Potentiometer value:");
@@ -62,66 +93,41 @@ void loop() {
   else {                                //if it isn't dark turn the LED off
 
     turnOff();                            //call the turn off function
+=======
+  // Print the values to the Serial Monitor
+  Serial.print("Photoresistor value: ");
+  Serial.print(photoresistor);
+  Serial.print("  Potentiometer value: ");
+  Serial.println(potentiometer);
+>>>>>>> Stashed changes
 
+  if (photoresistor < threshold) { // If it's dark, turn the LED on
+    if (potentiometer > 0 && potentiometer <= 100 && (currentRed != 255 || currentGreen != 0 || currentBlue != 0))
+      transitionColor(255, 0, 0, 50, 10); // Transition to red
+    else if (potentiometer > 100 && potentiometer <= 200 && (currentRed != 255 || currentGreen != 100 || currentBlue != 0))
+      transitionColor(255, 100, 0, 50, 10); // Transition to orange
+    else if (potentiometer > 200 && potentiometer <= 300 && (currentRed != 255 || currentGreen != 255 || currentBlue != 0))
+      transitionColor(255, 255, 0, 50, 10); // Transition to yellow
+    else if (potentiometer > 300 && potentiometer <= 400 && (currentRed != 100 || currentGreen != 255 || currentBlue != 0))
+      transitionColor(100, 255, 0, 50, 10); // Transition to light green
+    else if (potentiometer > 400 && potentiometer <= 500 && (currentRed != 0 || currentGreen != 255 || currentBlue != 0))
+      transitionColor(0, 255, 0, 50, 10); // Transition to green
+    else if (potentiometer > 500 && potentiometer <= 600 && (currentRed != 0 || currentGreen != 255 || currentBlue != 100))
+      transitionColor(0, 255, 100, 50, 10); // Transition to teal
+    else if (potentiometer > 600 && potentiometer <= 700 && (currentRed != 0 || currentGreen != 255 || currentBlue != 255))
+      transitionColor(0, 255, 255, 50, 10); // Transition to cyan
+    else if (potentiometer > 700 && potentiometer <= 800 && (currentRed != 0 || currentGreen != 0 || currentBlue != 255))
+      transitionColor(0, 0, 255, 50, 10); // Transition to blue
+    else if (potentiometer > 800 && potentiometer <= 900 && (currentRed != 100 || currentGreen != 0 || currentBlue != 255))
+      transitionColor(100, 0, 255, 50, 10); // Transition to purple
+    else if (potentiometer > 900 && potentiometer <= 1000 && (currentRed != 255 || currentGreen != 0 || currentBlue != 255))
+      transitionColor(255, 0, 255, 50, 10); // Transition to pink
+    else if ((currentRed != 255 || currentGreen != 255 || currentBlue != 255))
+      transitionColor(255, 255, 255, 50, 10); // Transition to white
+  } else { // If it isn't dark, turn the LED off
+    if (currentRed != 0 || currentGreen != 0 || currentBlue != 0)
+      transitionColor(0, 0, 0, 50, 10); // Transition to off
   }
 
-  delay(100);                             //short delay so that the printout is easier to read
+  delay(100); // Short delay to make the printout easier to read
 }
-
-void red () {
-
-  //set the LED pins to values that make red
-  analogWrite(RedPin, 100);
-  analogWrite(GreenPin, 0);
-  analogWrite(BluePin, 0);
-}
-void orange () {
-
-  //set the LED pins to values that make orange
-  analogWrite(RedPin, 100);
-  analogWrite(GreenPin, 50);
-  analogWrite(BluePin, 0);
-}
-void yellow () {
-
-  //set the LED pins to values that make yellow
-  analogWrite(RedPin, 100);
-  analogWrite(GreenPin, 100);
-  analogWrite(BluePin, 0);
-}
-void green () {
-
-  //set the LED pins to values that make green
-  analogWrite(RedPin, 0);
-  analogWrite(GreenPin, 100);
-  analogWrite(BluePin, 0);
-}
-void cyan () {
-
-  //set the LED pins to values that make cyan
-  analogWrite(RedPin, 0);
-  analogWrite(GreenPin, 100);
-  analogWrite(BluePin, 100);
-}
-void blue () {
-
-  //set the LED pins to values that make blue
-  analogWrite(RedPin, 0);
-  analogWrite(GreenPin, 0);
-  analogWrite(BluePin, 100);
-}
-void magenta () {
-
-  //set the LED pins to values that make magenta
-  analogWrite(RedPin, 100);
-  analogWrite(GreenPin, 0);
-  analogWrite(BluePin, 100);
-}
-void turnOff () {
-
-  //set all three LED pins to 0 or OFF
-  analogWrite(RedPin, 0);
-  analogWrite(GreenPin, 0);
-  analogWrite(BluePin, 0);
-}
-
