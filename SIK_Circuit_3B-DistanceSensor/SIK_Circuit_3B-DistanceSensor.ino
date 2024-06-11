@@ -39,14 +39,14 @@ void loop() {
   Serial.print(distance);     //print the distance that was measured
   Serial.println(" in");      //print units after the distance
 
-  if (distance <= 10) {                       //if the object is close
+  if (distance <= 5) {                       //if the object is close
 
     //make the RGB LED red
     analogWrite(redPin, 255);
     analogWrite(greenPin, 0);
     analogWrite(bluePin, 0);
 
-  } else if (10 < distance && distance < 20) { //if the object is a medium distance
+  } else if (5 < distance && distance < 10) { //if the object is a medium distance
 
     //make the RGB LED yellow
     analogWrite(redPin, 255);
