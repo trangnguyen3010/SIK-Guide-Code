@@ -37,7 +37,7 @@ float distance = 0;            //variable to store the distance measured by the 
 
 //robot behaviour variables
 int backupTime = 300;           //amount of time that the robot will back up when it senses an object
-int turnTime = 200;             //amount that the robot will turn once it has backed up
+int turnTime = 1000;             //amount that the robot will turn once it has backed up
 
 /********************************************************************************/
 void setup()
