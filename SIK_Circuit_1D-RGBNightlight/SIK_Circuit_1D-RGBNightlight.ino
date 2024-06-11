@@ -31,97 +31,115 @@ void setup() {
 }
 
 void loop() {
-
-  photoresistor = analogRead(A0);         //read the value of the photoresistor
+  // Read the value of the photoresistor
+  photoresistor = analogRead(A0);
+  // Read the value of the potentiometer
   potentiometer = analogRead(A1);
 
-  Serial.print("Photoresistor value:");
-  Serial.print(photoresistor);          //print the photoresistor value to the serial monitor
-  Serial.print("  Potentiometer value:");
-  Serial.println(potentiometer);          //print the potentiometer value to the serial monitor
+  // Print the values to the Serial Monitor
+  Serial.print("Photoresistor value: ");
+  Serial.print(photoresistor);
+  Serial.print("  Potentiometer value: ");
+  Serial.println(potentiometer);
 
-  if (photoresistor < threshold) {        //if it's dark (the photoresistor value is below the threshold) turn the LED on
-    //These nested if statements check for a variety of ranges and
-    //call different functions based on the current potentiometer value.
-    //Those functions are found at the bottom of the sketch.
-    if (potentiometer > 0 && potentiometer <= 150)
+  if (photoresistor < threshold) { // If it's dark, turn the LED on
+    if (potentiometer > 0 && potentiometer <= 100)
       red();
-    if (potentiometer > 150 && potentiometer <= 300)
+    else if (potentiometer > 100 && potentiometer <= 200)
       orange();
-    if (potentiometer > 300 && potentiometer <= 450)
+    else if (potentiometer > 200 && potentiometer <= 300)
       yellow();
-    if (potentiometer > 450 && potentiometer <= 600)
+    else if (potentiometer > 300 && potentiometer <= 400)
+      lightGreen();
+    else if (potentiometer > 400 && potentiometer <= 500)
       green();
-    if (potentiometer > 600 && potentiometer <= 750)
+    else if (potentiometer > 500 && potentiometer <= 600)
+      teal();
+    else if (potentiometer > 600 && potentiometer <= 700)
       cyan();
-    if (potentiometer > 750 && potentiometer <= 900)
+    else if (potentiometer > 700 && potentiometer <= 800)
       blue();
-    if (potentiometer > 900)
-      magenta();
+    else if (potentiometer > 800 && potentiometer <= 900)
+      purple();
+    else if (potentiometer > 900 && potentiometer <= 1000)
+      pink();
+    else
+      white();
+  } else { // If it isn't dark, turn the LED off
+    turnOff();
   }
-  else {                                //if it isn't dark turn the LED off
 
-    turnOff();                            //call the turn off function
-
-  }
-
-  delay(100);                             //short delay so that the printout is easier to read
+  delay(100); // Short delay to make the printout easier to read
 }
 
-void red () {
-
-  //set the LED pins to values that make red
-  analogWrite(RedPin, 100);
+void red() {
+  analogWrite(RedPin, 255);
   analogWrite(GreenPin, 0);
   analogWrite(BluePin, 0);
 }
-void orange () {
 
-  //set the LED pins to values that make orange
-  analogWrite(RedPin, 100);
-  analogWrite(GreenPin, 50);
-  analogWrite(BluePin, 0);
-}
-void yellow () {
-
-  //set the LED pins to values that make yellow
-  analogWrite(RedPin, 100);
+void orange() {
+  analogWrite(RedPin, 255);
   analogWrite(GreenPin, 100);
   analogWrite(BluePin, 0);
 }
-void green () {
 
-  //set the LED pins to values that make green
-  analogWrite(RedPin, 0);
-  analogWrite(GreenPin, 100);
+void yellow() {
+  analogWrite(RedPin, 255);
+  analogWrite(GreenPin, 255);
   analogWrite(BluePin, 0);
 }
-void cyan () {
 
-  //set the LED pins to values that make cyan
+void lightGreen() {
+  analogWrite(RedPin, 100);
+  analogWrite(GreenPin, 255);
+  analogWrite(BluePin, 0);
+}
+
+void green() {
   analogWrite(RedPin, 0);
-  analogWrite(GreenPin, 100);
+  analogWrite(GreenPin, 255);
+  analogWrite(BluePin, 0);
+}
+
+void teal() {
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 255);
   analogWrite(BluePin, 100);
 }
-void blue () {
 
-  //set the LED pins to values that make blue
+void cyan() {
+  analogWrite(RedPin, 0);
+  analogWrite(GreenPin, 255);
+  analogWrite(BluePin, 255);
+}
+
+void blue() {
   analogWrite(RedPin, 0);
   analogWrite(GreenPin, 0);
-  analogWrite(BluePin, 100);
+  analogWrite(BluePin, 255);
 }
-void magenta () {
 
-  //set the LED pins to values that make magenta
+void purple() {
   analogWrite(RedPin, 100);
   analogWrite(GreenPin, 0);
-  analogWrite(BluePin, 100);
+  analogWrite(BluePin, 255);
 }
-void turnOff () {
 
-  //set all three LED pins to 0 or OFF
+void pink() {
+  analogWrite(RedPin, 255);
+  analogWrite(GreenPin, 0);
+  analogWrite(BluePin, 255);
+}
+
+void white() {
+  analogWrite(RedPin, 255);
+  analogWrite(GreenPin, 255);
+  analogWrite(BluePin, 255);
+}
+
+void turnOff() {
   analogWrite(RedPin, 0);
   analogWrite(GreenPin, 0);
   analogWrite(BluePin, 0);
 }
-
