@@ -25,7 +25,7 @@ void setup() {
 void loop() {
 
   lcd.setCursor(0, 0);              //set the cursor to the 0,0 position (top left corner)
-  lcd.print("Hello, world!");       //print hello, world! starting at that position
+  lcd.print("Change the Message!");       //print hello, world! starting at that position
 
   lcd.setCursor(0, 1);              //move the cursor to the first space of the bottom row
   lcd.print(millis() / 1000);       //print the number of seconds that have passed since the last reset
